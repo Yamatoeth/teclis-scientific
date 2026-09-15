@@ -29,7 +29,10 @@ export const generateMetadata = async (
     { name: "About", url: `${SITE_URL}/${params.locale}/about` },
   ]);
 
-  return attachSchemaToMetadata(baseMetadata, breadcrumbSchema);
+  return attachSchemaToMetadata(
+    baseMetadata as Record<string, unknown> & { other?: Record<string, unknown> },
+    breadcrumbSchema
+  );
 };
 
 export default async function About({
