@@ -13,6 +13,7 @@ interface BrochureModalProps {
   onOpenChange: (open: boolean) => void;
   productName?: string;
   instrumentName?: string;
+  productKey?: string;
 }
 
 const BrochureModal = ({ open, onOpenChange, productName, instrumentName }: BrochureModalProps) => {

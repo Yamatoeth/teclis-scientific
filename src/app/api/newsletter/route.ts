@@ -16,11 +16,14 @@ export async function POST(req: NextRequest) {
     const listId = process.env.MAILCHIMP_LIST_ID;
     const apiKey = process.env.MAILCHIMP_API_KEY;
 
+    // Mailchimp uses Basic Auth: API key as username, any string as password
+    const authHeader = 'Basic ' + Buffer.from(`${apiKey}:anystring`).toString('base64');
+
     const providerRes = await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `apikey ${apiKey}`
+        Authorization: authHeader,
       },
       body: JSON.stringify({
         email_address: email,

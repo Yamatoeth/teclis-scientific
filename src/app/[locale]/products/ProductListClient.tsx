@@ -1,88 +1,106 @@
-"use client";
-import { useState, useMemo, useCallback } from "react";
-import ProductCard from "@/components/ui/product-card";
-import CategoryFilter from "@/components/ui/category-filter";
-import BrochureModal from "@/components/ui/brochure-modal";
-import { products } from "@/types/products";
-import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+"use client"
+import { useState, useMemo, useCallback } from "react"
+import ProductCard from "@/components/ui/product-card"
+import CategoryFilter from "@/components/ui/category-filter"
+import BrochureModal from "@/components/ui/brochure-modal"
+import { useTranslations } from "next-intl"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
 
-// Category aliases mapping
 const CATEGORY_ALIASES: Record<string, string> = {
   surface: "tension",
   rheometers: "rheology",
-};
+}
 
-export default function ProductListClient() {
-  const t = useTranslations();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+type Product = {
+  productKey: string
+  title: string
+  description: string
+  features: string[]
+  image?: string
+  video?: string
+  pdfUrl?: string
+  path: string
+  price?: string
+  category?: string
+}
 
-  // Initialize from URL or default to "all"
+interface ProductListClientProps {
+  initialProducts?: Product[]
+}
+
+export default function ProductListClient({ initialProducts = [] }: ProductListClientProps) {
+  const t = useTranslations()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
   const [activeCategory, setActiveCategory] = useState<string>(() => {
-    const urlCategory = searchParams.get("category");
-    if (!urlCategory) return "all";
-    // Apply alias mapping
-    return CATEGORY_ALIASES[urlCategory] || urlCategory;
-  });
+    const urlCategory = searchParams.get("category")
+    if (!urlCategory) return "all"
+    return CATEGORY_ALIASES[urlCategory] || urlCategory
+  })
 
-  const [brochureModalOpen, setBrochureModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const [brochureModalOpen, setBrochureModalOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
-  // Handle PDF download / brochure request
-  const handleDownload = useCallback((product: typeof products[0]) => {
-    // PDF files don't exist in public/pdf/, so open the brochure request modal
-    setSelectedProduct(product);
-    setBrochureModalOpen(true);
-  }, []);
+  const handleDownload = useCallback((product: Product) => {
+    setSelectedProduct(product)
+    setBrochureModalOpen(true)
+  }, [])
 
-  // Update URL when category changes (without page reload)
   const handleCategoryChange = useCallback((category: string) => {
-    setActiveCategory(category);
-
-    // Build new URL with updated category
-    const params = new URLSearchParams(searchParams.toString());
+    setActiveCategory(category)
+    const params = new URLSearchParams(searchParams.toString())
     if (category === "all") {
-      params.delete("category");
+      params.delete("category")
     } else {
-      // Store the original category value (not the alias) in URL for cleaner URLs
       const originalCategory = Object.entries(CATEGORY_ALIASES)
-        .find(([, alias]) => alias === category)?.[0] || category;
-      params.set("category", originalCategory);
+        .find(([, alias]) => alias === category)?.[0] || category
+      params.set("category", originalCategory)
     }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [searchParams, router, pathname])
 
-    // Update URL without navigation/reload
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  }, [searchParams, router, pathname]);
+  const normalizedProducts = useMemo(() => {
+    return initialProducts as Product[]
+  }, [initialProducts])
 
   const filteredProducts = useMemo(() => {
-    if (activeCategory === "all") return products;
-    return products.filter((product) => product.category === activeCategory);
-  }, [activeCategory]);
+    if (!activeCategory || activeCategory === "all") return normalizedProducts
+
+    const categoryMap: Record<string, string> = {
+      trackerTensiometer: "tension",
+      foamscan: "foam",
+      bubbleStatistics: "rheology",
+      foamscanHTMP: "tension",
+      trackerHTHP: "accessories",
+      jetscan: "tension",
+    }
+
+    return normalizedProducts.filter(product => {
+      const productCategory = product.category ?? categoryMap[product.productKey] ?? ''
+      return productCategory === activeCategory
+    })
+  }, [activeCategory, normalizedProducts])
 
   return (
     <>
       <div className="space-y-12">
-        {/* Category Filter */}
         <CategoryFilter
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
         />
 
-        {/* Products count */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
             {t("products.page.showing", { count: filteredProducts.length })}
           </p>
         </div>
 
-        {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((product, index) => (
+          {filteredProducts.map((product: Product) => (
             <div
               key={product.productKey}
-              style={{ animationDelay: `${index * 100}ms` }}
               className="animate-in fade-in slide-in-from-bottom-4 duration-500"
             >
               <ProductCard
@@ -90,9 +108,9 @@ export default function ProductListClient() {
                 description={product.description}
                 features={product.features}
                 price={product.price}
-                image={product.image}
-                video={product.video}
-                to={product.path}
+                image={product.image || undefined}
+                video={product.video || undefined}
+                to={product.path || undefined}
                 onDownload={() => handleDownload(product)}
                 productKey={product.productKey}
               />
@@ -100,7 +118,6 @@ export default function ProductListClient() {
           ))}
         </div>
 
-        {/* Empty state */}
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center">
@@ -118,13 +135,13 @@ export default function ProductListClient() {
         )}
       </div>
 
-      {/* Brochure Request Modal */}
       <BrochureModal
         open={brochureModalOpen}
         onOpenChange={setBrochureModalOpen}
-        productName={selectedProduct?.title}
-        instrumentName={selectedProduct?.title}
+        productName={selectedProduct?.title ?? ''}
+        instrumentName={selectedProduct?.title ?? ''}
+        productKey={selectedProduct?.productKey ?? ''}
       />
     </>
-  );
+  )
 }
