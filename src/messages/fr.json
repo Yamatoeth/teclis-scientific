@@ -2087,8 +2087,10 @@
         "partnership": "Partenariat",
         "other": "Autre"
       },
-      "submit": "Envoyer le Message",
-      "submitButton": "Envoyer le Message",
+      "sendButton": "Envoyer le Message",
+      "sending": "Envoi en cours...",
+      "successMessage": "Merci ! Votre message a été envoyé avec succès. Nous vous répondrons bientôt.",
+      "errorMessage": "Une erreur est survenue. Veuillez réessayer.",
       "disclaimer": "En soumettant ce formulaire, vous acceptez notre Politique de Confidentialité et nos Conditions d'Utilisation.",
       "agreement": "En soumettant ce formulaire, vous acceptez notre Politique de Confidentialité et nos Conditions d'Utilisation."
     },
@@ -2205,22 +2207,126 @@
     }
   },
   "careers": {
+    "hero": {
+      "subtitle": "Rejoignez Notre Equipe",
+      "title": "Construisez l'Avenir des Sciences des Interfaces",
+      "description": "Nous recherchons des personnes passionnees qui veulent faire la difference dans la recherche scientifique et l'innovation.",
+      "badge": "Nous Recrutons",
+      "since": "Depuis 1998",
+      "descriptionFull": "Chez Teclis Scientific, vous travaillerez aux cotes de brillants scientifiques et ingenieurs, en developpant des instruments de pointe qui font avancer la connaissance humaine. Notre equipe est dediee a repousser les limites de ce qui est possible en sciences des surfaces et des interfaces.",
+      "imageAlt": "Notre equipe talentueuse au travail"
+    },
+    "joinUs": "Rejoignez-Nous !",
+    "viewPositions": "Voir les Postes Ouverts",
+    "openPositions": {
+      "badge": "Opportunites Actuelles",
+      "title": "Postes Ouverts",
+      "description": "Explorez des opportunites excitantes pour avoir un impact significatif dans le monde des instruments scientifiques."
+    },
+    "positions": {
+      "requirements": "Qualifications",
+      "rd": {
+        "department": "R&D",
+        "type": "Temps Plein",
+        "title": "Ingenieur R&D",
+        "location": "Civrieux d'Azergues, France",
+        "description": "Concevez et developpez les prochains instruments scientifiques pour l'analyse des surfaces et des interfaces. Vous travaillerez sur des systemes optiques, l'automatisation et l'integration logicielle.",
+        "requirements": "Diplome d'ingenieur en Optique, Physique ou Genie Mecanique\n3+ ans d'experience en conception d'instruments\nExperience avec des systemes de mesure optique\nMaitrise des logiciels de CAO (SolidWorks)\nConnaissance de l'automatisation et des systemes de controle"
+      },
+      "sales": {
+        "department": "Commercial",
+        "type": "Temps Plein",
+        "title": "Ingenieur Commercial Technique",
+        "location": "France (Voyages requis)",
+        "description": "Representez Teclis Scientific aupres de clients du monde entier, en fournissant une expertise technique et en aidant les chercheurs a trouver les solutions adaptees a leurs besoins.",
+        "requirements": "Formation en ingenierie ou sciences\n2+ ans en vente technique ou support applicatif\nExcellentes competences en communication en anglais et francais\nDisposition a voyager internationalement\nPassion pour la science et la reussite client"
+      },
+      "support": {
+        "department": "Support",
+        "type": "Temps Plein",
+        "title": "Specialiste Support",
+        "location": "Civrieux d'Azergues, France (Hybride)",
+        "description": "Fournissez un support technique et une formation a nos clients du monde entier. Aidez les chercheurs a tirer le meilleur parti de leurs instruments Teclis par assistance a distance et visites sur site.",
+        "requirements": "Formation en sciences ou ingenierie\nExcellentes competences en resolution de problemes\nForte capacite de communication\nExperience avec les instruments scientifiques\nMaitrise des outils de support a distance"
+      }
+    },
+    "applyButton": "Postuler",
+    "applySubject": "Candidature - {position}",
+    "applyBody": "Cher Equipe Teclis Scientific,\n\nJe vous ecris pour postuler au poste de {position}.\n\nVeuillez trouver ci-joint mon CV et ma lettre de motivation.\n\nCordialement",
+    "unsolicited": {
+      "title": "Ne Voyez Pas le Poste Ideal ?",
+      "description": "Nous sommes toujours interesses par des personnes talentueuses. Envoyez-nous votre CV memes il n'y a pas d'ouverture specifique correspondant a votre profil.",
+      "subject": "Candidature Spontanee - Teclis Scientific",
+      "button": "Envoyer Ma Candidature"
+    },
+    "culture": {
+      "badge": "Notre Culture",
+      "title": "Innovation, Collaboration, Excellence",
+      "description": "Nous favorisons un environnement ou la curiosite scientifique prospere, ou les perspectives diverses sont valorisees, et ou les innovations remarquables voient le jour.",
+      "values": {
+        "title": "Nos Valeurs Fondamentales",
+        "description": "Ce qui nous anime chaque jour."
+      },
+      "mission": {
+        "title": "Notre Mission",
+        "description": "Faire avancer la connaissance humaine grâce a une instrumentation de precision et a l'excellence scientifique."
+      },
+      "imageAlt": "Collaboration d'equipe chez Teclis Scientific",
+      "teamSize": "15+",
+      "teams": "Scientifiques, Ingenieurs & Support"
+    },
+    "perks": {
+      "badge": "Ce Que Nous Offrons",
+      "title": "Nous Prenons Soin de Notre Equipe",
+      "description": "Pack de prestations complet concu pour soutenir votre succes personnel et professionnel.",
+      "compensation": {
+        "title": "Remuneration Competitive",
+        "description": "Salaires leaders du marche avec primes de performance et options sur actions"
+      },
+      "health": {
+        "title": "Couverture Sante",
+        "description": "Assurance sante, dentaire et vision premium pour vous et votre famille"
+      },
+      "development": {
+        "title": "Formation & Developpement",
+        "description": "Participation a des conferences, programmes de formation et remboursement des frais de formation"
+      },
+      "flexibility": {
+        "title": "Conges Flexibles",
+        "description": "Politique de conges genereuse avec arrangements de travail flexibles"
+      },
+      "travel": {
+        "title": "Opportunites Mondiales",
+        "description": "Collaborations internationales et opportunites de voyage dans le monde entier"
+      },
+      "environment": {
+        "title": "Environnement d'Innovation",
+        "description": "Laboratoire de pointe et espace de travail collaboratif"
+      }
+    },
+    "applyNow": {
+      "title": "Pret a Vous Rejoindre ?",
+      "description": "Faites le premier pas vers une carrière excitante chez Teclis Scientific. Nous avons hate de vous entendre !",
+      "button": "Postuler Maintenant",
+      "secondary": "Contactez-Nous D'abord"
+    },
+    "joinUsSubject": "Candidature - Teclis Scientific",
     "benefits": [
       {
-        "title": "Santé & Bien-être",
-        "description": "Assurance maladie complète, programmes de bien-être et soutien en santé mentale."
+        "title": "Sante & Bien-Etre",
+        "description": "Assurance maladie complete, programmes de bien-etre et soutien a la sante mentale."
       },
       {
         "title": "Croissance Professionnelle",
-        "description": "Opportunités d'apprentissage continu, participation à des conférences et programmes de développement de carrière."
+        "description": "Opportunites d'apprentissage continu, participation a des conferences et programmes de developpement de carrière."
       },
       {
         "title": "Culture Collaborative",
-        "description": "Travaillez avec des scientifiques et ingénieurs passionnés dans un environnement de soutien et d'innovation."
+        "description": "Travaillez avec des scientifiques et ingenieurs passionnes dans un environnement innovant et bienveillant."
       },
       {
         "title": "Temps d'Innovation",
-        "description": "Temps dédié aux projets personnels et à l'exploration de nouvelles idées qui font progresser notre mission."
+        "description": "Temps dedie aux projets personnels et a l'exploration de nouvelles idees qui font progresser notre mission."
       }
     ]
   },

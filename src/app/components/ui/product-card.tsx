@@ -25,10 +25,10 @@ const ProductCard = ({
   productKey,
   title, 
   description: _description, 
-  image, 
+  image,
   video,
-  features, 
-  price, 
+  features,
+  price,
   badge,
   href: _href,
   to,
@@ -62,6 +62,17 @@ const ProductCard = ({
       onMouseMove={handleMouseMove}
       className="group relative cursor-pointer flex flex-col h-full opacity-0 translate-y-8 transition-all duration-700 ease-out"
     >
+      {/* Make entire card clickable via Link, except the PDF button */}
+      {to && (
+        <Link
+          href={to}
+          className="absolute inset-0 z-10"
+          aria-label={`${t(`productsOverview.${productKey}.title`)} - ${t("learnMore")}`}
+        >
+          <div className="w-full h-full" />
+        </Link>
+      )}
+
       {/* Glow effect on hover */}
       <div 
         className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -161,24 +172,31 @@ const ProductCard = ({
           {/* Action buttons */}
           <div className="flex flex-col sm:flex-row gap-2 pt-4 mt-auto">
             {to && (
-              <Link
-                href={to}
+              <Button
+                variant="ghost"
+                size="sm"
                 className="flex-1 group/btn relative inline-flex items-center justify-center rounded-xl border-2 border-primary/30 px-4 py-3 text-primary font-medium overflow-hidden transition-all duration-300 hover:border-primary hover:text-white hover:shadow-lg hover:shadow-primary/20"
+                asChild
               >
-                {/* Button gradient fill */}
-                <div className="absolute inset-0 bg-linear-to-r from-primary to-accent translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-                <span className="relative flex items-center gap-2 text-sm">
-                  {t("learnMoreAbout")} {t(`productsOverview.${productKey}.title`)}
-                  <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-                </span>
-              </Link>
+                <Link href={to} className="relative flex items-center gap-2 text-sm w-full">
+                  {/* Button gradient fill */}
+                  <div className="absolute inset-0 bg-linear-to-r from-primary to-accent translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+                  <span className="relative flex items-center gap-2 text-sm">
+                    {t("learnMoreAbout")} {t(`productsOverview.${productKey}.title`)}
+                    <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                  </span>
+                </Link>
+              </Button>
             )}
             
             {onDownload && (
               <Button 
                 variant="ghost" 
                 size="sm"
-                onClick={onDownload}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent card navigation
+                  onDownload();
+                }}
                 className="text-primary hover:text-primary-hover hover:bg-primary/10 rounded-xl"
               >
                 <Download size={16} className="mr-2" />

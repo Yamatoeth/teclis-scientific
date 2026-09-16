@@ -11,21 +11,34 @@ interface HomeClientProps {
 }
 
 export default function HomeClient({ title, subtitle, children }: HomeClientProps) {
-  const [showSplash, setShowSplash] = useState(true);
+  // Initialize from localStorage; always render children for SSR
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("hasVisitedSplash");
+  });
 
   const handleEnterApp = () => {
     setShowSplash(false);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("hasVisitedSplash", "true");
+    }
   };
 
-  if (showSplash) {
-    return (
-      <SplashScreen 
-        onEnter={handleEnterApp} 
-        title={title} 
-        subtitle={subtitle}
-      />
-    );
-  }
+  // Always render children in the DOM for SSR/SEO.
+  // The splash screen is mounted as an overlay only on first visit.
+  return (
+    <>
+      {/* Always render children so SSR produces full page content */}
+      {children}
 
-  return <>{children}</>;
+      {/* Splash overlay — only visible on first visit (client-side) */}
+      {showSplash && (
+        <SplashScreen
+          onEnter={handleEnterApp}
+          title={title}
+          subtitle={subtitle}
+        />
+      )}
+    </>
+  );
 }

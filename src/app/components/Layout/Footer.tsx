@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing'
-import { MapPin, Phone, Mail, Linkedin, Twitter, ArrowUpRight, Globe } from 'lucide-react';
+import { MapPin, Phone, Mail, Linkedin, ArrowUpRight, Globe, Youtube } from 'lucide-react';
 import { useTranslations } from "next-intl";
 
 
@@ -86,21 +86,25 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex items-center gap-3">
               <a 
-                href="#" 
+                href="https://www.linkedin.com/company/teclis-scientific" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="group relative flex items-center justify-center w-10 h-10 rounded-full border border-border/50 bg-background/50 hover:border-accent/50 hover:bg-accent/10 transition-all duration-300"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={18} className="text-muted-foreground group-hover:text-accent transition-colors" />
               </a>
               <a 
-                href="#" 
+                href="https://www.youtube.com/@TeclisScientific" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="group relative flex items-center justify-center w-10 h-10 rounded-full border border-border/50 bg-background/50 hover:border-accent/50 hover:bg-accent/10 transition-all duration-300"
-                aria-label="Twitter"
+                aria-label="YouTube"
               >
-                <Twitter size={18} className="text-muted-foreground group-hover:text-accent transition-colors" />
+                <Youtube size={18} className="text-muted-foreground group-hover:text-accent transition-colors" />
               </a>
               <a 
-                href="#" 
+                href="#"
                 className="group relative flex items-center justify-center w-10 h-10 rounded-full border border-border/50 bg-background/50 hover:border-accent/50 hover:bg-accent/10 transition-all duration-300"
                 aria-label="Website"
               >
@@ -118,13 +122,13 @@ const Footer = () => {
               <FooterLink href="/products">
                 {t("footer.products.all")}
               </FooterLink>
-              <FooterLink href="/products?category=surface">
+              <FooterLink href="/products?category=tension">
                 {t("footer.products.surface")}
               </FooterLink>
               <FooterLink href="/products?category=foam">
                 {t("footer.products.foam")}
               </FooterLink>
-              <FooterLink href="/products?category=rheometers">
+              <FooterLink href="/products?category=rheology">
                 {t("footer.products.rheometers")}
               </FooterLink>
             </nav>

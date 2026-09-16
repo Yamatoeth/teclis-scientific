@@ -10,6 +10,7 @@ import { Link } from '@/i18n/routing';
 import ProductsHero from '@/components/ui/products-hero';
 import CTASection from '@/components/ui/cta-section';
 import { Zap, Target, Shield, HeadphonesIcon } from 'lucide-react';
+import { Suspense } from 'react';
 
 export const generateMetadata = async (
   props: { params: Promise<{ locale: string }> }
@@ -69,7 +70,9 @@ export default async function Products({ params }: {params: Promise<{ locale: st
         id="products-grid"
         background="default"
       >
-        <ProductListClient />
+        <Suspense fallback={<div className="animate-pulse h-64 bg-secondary/50 rounded-2xl" />}>
+          <ProductListClient />
+        </Suspense>
       </Section>
 
       {/* Why Choose Teclis Section */}

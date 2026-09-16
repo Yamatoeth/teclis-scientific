@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const alt = 'Teclis Scientific - Precision Instruments for Interface Science';
 export const size = {
   width: 1200,

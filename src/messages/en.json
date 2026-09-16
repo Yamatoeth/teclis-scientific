@@ -2031,6 +2031,29 @@
       "italia": "Teclis in Italia",
       "uk": "Teclis in UK"
     },
+    "brochure": {
+      "title": "Receive Our Brochure",
+      "titleWithProduct": "Brochure for {product}",
+      "subtitle": "Complete this form to receive detailed product information by email.",
+      "name": "Full Name *",
+      "email": "Email Address *",
+      "company": "Company/Institution",
+      "instrument": "Instrument of Interest",
+      "message": "Additional Questions",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your@email.com",
+      "companyPlaceholder": "Your company or institution",
+      "instrumentPlaceholder": "Which instrument interests you?",
+      "messagePlaceholder": "Any specific questions or requirements...",
+      "sendRequest": "Send Request",
+      "cancel": "Cancel",
+      "sending": "Sending...",
+      "success": "Request sent! We'll send the brochure to your email shortly.",
+      "error": "An error occurred. Please try again.",
+      "confirmation": "Redirecting to download...",
+      "privacyNote": "Your information will be used solely to send you the requested brochure and product information.",
+      "requestSubject": "Brochure Request"
+    },
     "form": {
       "badge": "Send a Message",
       "subtitle": "Send Us a Message",
@@ -2081,8 +2104,10 @@
         "partnership": "Partnership",
         "other": "Other"
       },
-      "submit": "Send Message",
-      "submitButton": "Send Message",
+      "sendButton": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+      "errorMessage": "An error occurred. Please try again.",
       "disclaimer": "By submitting this form, you agree to our Privacy Policy and Terms of Service.",
       "agreement": "By submitting this form, you agree to our Privacy Policy and Terms of Service."
     },
@@ -2199,6 +2224,110 @@
     }
   },
   "careers": {
+    "hero": {
+      "subtitle": "Join Our Team",
+      "title": "Build the Future of Interface Science",
+      "description": "We're looking for passionate individuals who want to make a difference in scientific research and innovation.",
+      "badge": "We're Hiring",
+      "since": "Since 1998",
+      "descriptionFull": "At Teclis Scientific, you'll work alongside brilliant scientists and engineers, developing cutting-edge instruments that advance human knowledge. Our team is dedicated to pushing the boundaries of what's possible in surface and interface science.",
+      "imageAlt": "Our talented team at work"
+    },
+    "joinUs": "Join Us!",
+    "viewPositions": "View Open Positions",
+    "openPositions": {
+      "badge": "Current Opportunities",
+      "title": "Open Positions",
+      "description": "Explore exciting opportunities to make a meaningful impact in the world of scientific instrumentation."
+    },
+    "positions": {
+      "requirements": "Requirements",
+      "rd": {
+        "department": "R&D",
+        "type": "Full-time",
+        "title": "R&D Engineer",
+        "location": "Civrieux d'Azergues, France",
+        "description": "Design and develop next-generation scientific instruments for surface and interface analysis. You'll work on optical systems, automation, and software integration.",
+        "requirements": "Engineering degree in Optics, Physics, or Mechanical Engineering\n3+ years experience in instrument design\nExperience with optical measurement systems\nProficiency in CAD software (SolidWorks)\nKnowledge of automation and control systems"
+      },
+      "sales": {
+        "department": "Sales",
+        "type": "Full-time",
+        "title": "Technical Sales Engineer",
+        "location": "France (Travel required)",
+        "description": "Represent Teclis Scientific to customers worldwide, providing technical expertise and helping researchers find the right solutions for their needs.",
+        "requirements": "Engineering or Scientific background\n2+ years in technical sales or application support\nExcellent communication skills in English and French\nWillingness to travel internationally\nPassion for science and customer success"
+      },
+      "support": {
+        "department": "Support",
+        "type": "Full-time",
+        "title": "Support Specialist",
+        "location": "Civrieux d'Azergues, France (Hybrid)",
+        "description": "Provide technical support and training to our customers worldwide. Help researchers get the most out of their Teclis instruments through remote assistance and on-site visits.",
+        "requirements": "Background in sciences or engineering\nExcellent problem-solving skills\nStrong communication skills\nExperience with scientific instrumentation\nRemote support tools proficiency"
+      }
+    },
+    "applyButton": "Apply Now",
+    "applySubject": "Candidature - {position}",
+    "applyBody": "Dear Teclis Scientific Team,\n\nI am writing to apply for the position of {position}.\n\nPlease find my CV and cover letter attached.\n\nBest regards",
+    "unsolicited": {
+      "title": "Don't See the Right Position?",
+      "description": "We're always interested in hearing from talented individuals. Send us your CV even if there's no specific opening that matches your profile.",
+      "subject": "Candidature Spontanee - Teclis Scientific",
+      "button": "Send My Application"
+    },
+    "culture": {
+      "badge": "Our Culture",
+      "title": "Innovation, Collaboration, Excellence",
+      "description": "We foster an environment where scientific curiosity thrives, diverse perspectives are valued, and breakthrough innovations are born.",
+      "values": {
+        "title": "Our Core Values",
+        "description": "What drives us every day."
+      },
+      "mission": {
+        "title": "Our Mission",
+        "description": "Advancing human knowledge through precision instrumentation and scientific excellence."
+      },
+      "imageAlt": "Team collaboration at Teclis Scientific",
+      "teamSize": "15+",
+      "teams": "Scientists, Engineers & Support Staff"
+    },
+    "perks": {
+      "badge": "What We Offer",
+      "title": "We Take Care of Our Team",
+      "description": "Comprehensive benefits package designed to support your personal and professional success.",
+      "compensation": {
+        "title": "Competitive Compensation",
+        "description": "Market-leading salaries with performance bonuses and equity options"
+      },
+      "health": {
+        "title": "Health Coverage",
+        "description": "Premium health, dental, and vision insurance for you and your family"
+      },
+      "development": {
+        "title": "Learning & Development",
+        "description": "Conference attendance, training programs, and educational reimbursement"
+      },
+      "flexibility": {
+        "title": "Flexible Time Off",
+        "description": "Generous PTO policy with flexible working arrangements"
+      },
+      "travel": {
+        "title": "Global Opportunities",
+        "description": "International collaboration and travel opportunities worldwide"
+      },
+      "environment": {
+        "title": "Innovation Environment",
+        "description": "State-of-the-art laboratory and collaborative workspace"
+      }
+    },
+    "applyNow": {
+      "title": "Ready to Join Us?",
+      "description": "Take the first step towards an exciting career at Teclis Scientific. We look forward to hearing from you!",
+      "button": "Apply Now",
+      "secondary": "Contact Us First"
+    },
+    "joinUsSubject": "Candidature - Teclis Scientific",
     "benefits": [
       {
         "title": "Health & Wellness",

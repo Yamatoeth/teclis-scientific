@@ -5,9 +5,19 @@ import Providers from "../providers";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { setRequestLocale } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 
 const SITE_URL = "https://www.teclis-scientific.com";
 const SITE_NAME = "Teclis Scientific";
+
+// Enable static metadata generation
+export const metadataBase = new URL('https://www.teclis-scientific.com');
+
+// Pre-generate all locales for SSG
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 interface Props {
   children: React.ReactNode;
   params: Promise<{ locale: string }>; 

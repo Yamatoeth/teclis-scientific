@@ -1,4 +1,5 @@
 "use client";
+import { useState, useRef } from "react";
 import { ArrowRight, Phone, Mail, MapPin, Clock, Send, ChevronRight, Globe, ExternalLink } from 'lucide-react';
 import { useSyncExternalStore } from 'react';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,56 @@ const Contact = () => {
     () => true,
     () => false,
   );
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    type: "general",
+    subject: "",
+    message: "",
+  });
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("loading");
+    
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setFormStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          type: "general",
+          subject: "",
+          message: "",
+        });
+        // Reset success message after 5 seconds
+        setTimeout(() => setFormStatus("idle"), 5000);
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
+  };
 
   const contactMethods = [
     {
@@ -210,11 +261,11 @@ const Contact = () => {
             </div>
 
             <form
-              action="https://formspree.io/f/xqarbkqb"
-              method="POST"
+              ref={formRef}
+              onSubmit={handleSubmit}
               className="space-y-5"
             >
-              <input type="hidden" name="_subject" value="New Contact Form Submission" />
+              <input type="hidden" name="type" value={formData.type} />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -226,8 +277,11 @@ const Contact = () => {
                     name="name"
                     type="text"
                     required
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="John Doe"
                     className="h-11 rounded-xl border-border/50 focus:border-primary/50"
+                    disabled={formStatus === "loading"}
                   />
                 </div>
                 
@@ -240,8 +294,11 @@ const Contact = () => {
                     name="email"
                     type="email"
                     required
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="john@company.com"
                     className="h-11 rounded-xl border-border/50 focus:border-primary/50"
+                    disabled={formStatus === "loading"}
                   />
                 </div>
               </div>
@@ -255,8 +312,11 @@ const Contact = () => {
                     id="company"
                     name="company"
                     type="text"
+                    value={formData.company}
+                    onChange={handleChange}
                     placeholder="University of Science"
                     className="h-11 rounded-xl border-border/50 focus:border-primary/50"
+                    disabled={formStatus === "loading"}
                   />
                 </div>
                 
@@ -268,8 +328,11 @@ const Contact = () => {
                     id="phone"
                     name="phone"
                     type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
                     placeholder="+1 (555) 123-4567"
                     className="h-11 rounded-xl border-border/50 focus:border-primary/50"
+                    disabled={formStatus === "loading"}
                   />
                 </div>
               </div>
@@ -281,14 +344,14 @@ const Contact = () => {
                   </label>
                   <select
                     id="inquiry_type"
-                    name="inquiry_type"
+                    name="type"
                     required
+                    value={formData.type}
+                    onChange={handleChange}
                     className="w-full h-11 rounded-xl border border-border/50 bg-background px-3 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20"
-                    defaultValue=""
+                    disabled={formStatus === "loading"}
                   >
-                    <option value="" disabled>
-                      {t("contact.form.selectInquiryType")}
-                    </option>
+                    <option value="general" disabled>{t("contact.form.selectInquiryType")}</option>
                     <option value="product">{t("contact.form.inquiryOptions.product")}</option>
                     <option value="quote">{t("contact.form.inquiryOptions.quote")}</option>
                     <option value="demo">{t("contact.form.inquiryOptions.demo")}</option>
@@ -307,8 +370,11 @@ const Contact = () => {
                     name="subject"
                     type="text"
                     required
+                    value={formData.subject}
+                    onChange={handleChange}
                     placeholder={t("contact.form.placeholderSubject")}
                     className="h-11 rounded-xl border-border/50 focus:border-primary/50"
+                    disabled={formStatus === "loading"}
                   />
                 </div>
               </div>
@@ -322,18 +388,45 @@ const Contact = () => {
                   name="message"
                   required
                   rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder={t("contact.form.placeholderMessage")}
                   className="rounded-xl border-border/50 focus:border-primary/50 resize-none"
+                  disabled={formStatus === "loading"}
                 />
               </div>
               
               <Button 
                 type="submit" 
                 className="w-full h-12 rounded-xl bg-linear-to-r from-primary to-accent text-white font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
+                disabled={formStatus === "loading"}
               >
-                {t("contact.form.submitButton")}
-                <Send className="w-4 h-4 ml-2" />
+                {formStatus === "loading" ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                    {t("contact.form.sending")}
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Send className="w-4 h-4" />
+                    {t("contact.form.submitButton")}
+                  </span>
+                )}
               </Button>
+              
+              {formStatus === "success" && (
+                <p className="text-sm text-center text-emerald-600 font-medium">
+                  <span className="flex items-center justify-center gap-2">
+                    <Send size={14} />
+                    {t("contact.form.successMessage")}
+                  </span>
+                </p>
+              )}
+              {formStatus === "error" && (
+                <p className="text-sm text-center text-red-600 font-medium">
+                  {t("contact.form.errorMessage")}
+                </p>
+              )}
               
               <p className="text-xs text-muted-foreground text-center">
                 {t("contact.form.disclaimer")}
