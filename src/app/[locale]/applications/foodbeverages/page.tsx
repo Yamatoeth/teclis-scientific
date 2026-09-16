@@ -104,9 +104,9 @@ export default async function FoodBeverages({
   ];
 
   const products = [
-    t("Metadata.trackertensiometer.title"),
-    t("Metadata.foamscan.title"),
-    t("Metadata.jetscan.title"),
+    { slug: 'trackertensiometer', label: t("Metadata.trackertensiometer.title") },
+    { slug: 'foamscan', label: t("Metadata.foamscan.title") },
+    { slug: 'jetscan', label: t("Metadata.jetscan.title") },
   ];
 
   return (

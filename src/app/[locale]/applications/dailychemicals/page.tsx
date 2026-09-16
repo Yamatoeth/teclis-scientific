@@ -103,7 +103,10 @@ export default async function DailyChemicals({
     },
   ];
 
-  const products = [t("Metadata.trackertensiometer.title"), t("Metadata.foamscan.title")];
+  const products = [
+    { slug: 'trackertensiometer', label: t("Metadata.trackertensiometer.title") },
+    { slug: 'foamscan', label: t("Metadata.foamscan.title") },
+  ];
 
   return (
     <Layout>

@@ -84,9 +84,9 @@ export default async function OilGas({
   ];
 
   const products = [
-    t("applications.data.oilGas.products.tracker"),
-    t("applications.data.oilGas.products.foamscan"),
-    t("applications.data.oilGas.products.highPressureModules"),
+    { slug: 'trackertensiometer', label: t("applications.data.oilGas.products.tracker") },
+    { slug: 'foamscan', label: t("applications.data.oilGas.products.foamscan") },
+    { slug: 'trackerhtp', label: t("applications.data.oilGas.products.highPressureModules") },
   ];
 
   return (

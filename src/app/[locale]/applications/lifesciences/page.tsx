@@ -94,9 +94,9 @@ export default async function LifeSciences({
   ];
 
   const products = [
-    t("applications.data.lifeSciences.products.0"),
-    t("applications.data.lifeSciences.products.1"),
-    t("applications.data.lifeSciences.products.2"),
+    { slug: 'trackertensiometer', label: t("applications.data.lifeSciences.products.0") },
+    { slug: 'foamscan', label: t("applications.data.lifeSciences.products.1") },
+    { slug: 'jetscan', label: t("applications.data.lifeSciences.products.2") },
   ];
 
   return (

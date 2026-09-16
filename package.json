@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "next start",
-    "i18n:scan": "i18next-scanner"
+    "i18n:scan": "i18next-scanner",
+    "i18n:check": "node check-i18n.cjs",
+    "test": "npx tsx --test 'tests/**/*.test.ts'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

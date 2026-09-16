@@ -61,10 +61,14 @@ locales.forEach(locale => {
 
 if (!hasMissingKeys) {
   console.log('✓ All locales have complete translations!');
+  process.exit(0);
 } else {
   console.log('\n=== SUMMARY ===');
   locales.forEach(locale => {
     const status = missingKeys[locale].length === 0 ? '✓ Complete' : `✗ Missing ${missingKeys[locale].length} keys`;
     console.log(`${locale}.json: ${status}`);
   });
+  console.log(`\n✗ ${locales.filter(l => missingKeys[l].length > 0).length} / ${locales.length} locales have missing keys.`);
+  console.log('Run "npm run i18n:scan" to extract new keys, then translate them.');
+  process.exit(1);
 }

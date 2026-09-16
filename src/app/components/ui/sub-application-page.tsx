@@ -28,6 +28,11 @@ interface Benefit {
   textKey: string;
 }
 
+interface Product {
+  slug: string;
+  label: string;
+}
+
 interface SubApplicationPageProps {
   locale: string;
   breadcrumbKey: string;
@@ -36,7 +41,7 @@ interface SubApplicationPageProps {
   title: string;
   subtitle: string;
   description: string;
-  products: string[];
+  products: Product[];
   applications: Application[];
   benefits: Benefit[];
   accentColor?: string;
@@ -109,17 +114,17 @@ const SubApplicationPage = ({
 
               {/* Products Tags */}
               <div className="flex flex-wrap gap-2">
-                {products.map((product, index) => (
+                {products.map((product) => (
                   <Link
-                    key={index}
-                    href={`/products/${product.toLowerCase().replace(/\s+/g, '')}`}
+                    key={product.slug}
+                    href={`/products/${product.slug}`}
                     className="group relative inline-block"
                   >
                     <Badge
                       variant="secondary"
                       className="px-3 py-1.5 bg-secondary/50 hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-200 cursor-pointer border-border/50"
                     >
-                      {product}
+                      {product.label}
                       <ArrowRight size={12} className="ml-1 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-1 transition-all duration-200" />
                     </Badge>
                   </Link>
